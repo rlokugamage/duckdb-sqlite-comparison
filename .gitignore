@@ -1,0 +1,5 @@
+.venv
+dbs/*
+!dbs/dbs.md
+parquet_files/*
+!parquet_files/parquet_files.md
