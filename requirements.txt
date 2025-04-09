@@ -1,3 +1,4 @@
 pandas
 fastparquet
 duckdb
+rich

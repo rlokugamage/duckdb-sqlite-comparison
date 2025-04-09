@@ -3,8 +3,8 @@
 ## Timer
 | Method | Time (seconds) |
 | ------ | -------------- |
-| duckdb | 0.02 |
-| sqlite | 24.30 |
+| duckdb | 0.16 |
+| sqlite | 88.24 |
 
 ## Duckdb
 | home_team | avg(two_point_attempt) |

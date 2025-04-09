@@ -3,5 +3,5 @@
 ## Timer
 | Method | Time (seconds) |
 | ------ | -------------- |
-| duckdb | 22.11 |
-| sqlite | 72.49 |
+| duckdb | 21.77 |
+| sqlite | 74.01 |
