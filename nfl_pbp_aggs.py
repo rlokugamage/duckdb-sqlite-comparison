@@ -60,12 +60,16 @@ row_results = RowResults(duckdb_rows=[], sqlite_rows=[])
 
 def duckdb_avg():
     row_results.duckdb_rows = duckdb_conn.execute(
-        "select home_team, avg(two_point_attempt) from pbp group by home_team order by home_team"
+        "select home_team, avg(two_point_attempt) "
+        "from pbp group by home_team "
+        "order by home_team"
     ).fetchall()
 
 def sqlite_avg():
     row_results.sqlite_rows = sqlite_conn.execute(
-        "select home_team, avg(two_point_attempt) from pbp group by home_team order by home_team"
+        "select home_team, avg(two_point_attempt) "
+        "from pbp group by home_team "
+        "order by home_team"
     ).fetchall()
 
 console.print("Starting Aggregate Tasks")
@@ -94,8 +98,8 @@ with Progress(TextColumn("[progress.description]{task.description}"),
 duckdb_conn.close()
 sqlite_conn.close()
 console.print("In 100 loops:")
-console.print(f"- duckdb took on avg {mean(duckdb_avg_time):.2f} seconds")
-console.print(f"- sqlite took on avg {mean(sqlite_avg_time):.2f} seconds")
+console.print(f"- duckdb took on avg {mean(duckdb_avg_time):.5f} seconds")
+console.print(f"- sqlite took on avg {mean(sqlite_avg_time):.5f} seconds")
 
 with console.status("Writing results to nfl_pbp_aggs.md"):
     duckdb_table = (

@@ -14,8 +14,6 @@ from rich.progress import (
     TextColumn, SpinnerColumn, BarColumn, TaskProgressColumn, TimeElapsedColumn
 )
 
-from nfl_pbp_to_db import sqlite3_conn
-
 
 @dataclass
 class Scores:
@@ -162,7 +160,7 @@ with Progress(TextColumn("[progress.description]{task.description}"),
               TaskProgressColumn(),
               TimeElapsedColumn(),
               console=console) as progress:
-    with TaskSetup("Duckdb", progress=progress, total=10000, scores=duckdb_scores) as duckdb_setup:
+    with TaskSetup("Duckdb", progress=progress, total=100, scores=duckdb_scores) as duckdb_setup:
         duckdb_batch_update_time = timeit.repeat(
             stmt=lambda : batch_update(conn=duckdb_conn),
             setup=duckdb_setup,
@@ -170,9 +168,9 @@ with Progress(TextColumn("[progress.description]{task.description}"),
             number=1
         )
 
-    with TaskSetup("Sqlite", progress=progress, total=10000, scores=duckdb_scores) as sqlite_setup:
+    with TaskSetup("Sqlite", progress=progress, total=100, scores=duckdb_scores) as sqlite_setup:
         sqlite_batch_update_time = timeit.repeat(
-            stmt=lambda : batch_update(sqlite3_conn),
+            stmt=lambda : batch_update(sqlite_conn),
             setup=sqlite_setup,
             repeat=100,
             number=1

@@ -1,15 +1,15 @@
 # Results
 
-## Timer
-| Method | Time (seconds) |
-| ------ | -------------- |
-| duckdb | 0.16 |
-| sqlite | 88.24 |
-
-## Duckdb
-| home_team | avg(two_point_attempt) |
-| --------- | ---------------------- |
-| ARI | 0.00186805 |
+    ## Timer
+    | Method | Time (seconds) |
+    | ------ | -------------- |
+    | duckdb | 0.00 |
+    | sqlite | 1.02 |
+    
+    ## Duckdb
+    | home_team | avg(two_point_attempt) |
+    | --------- | ---------------------- |
+    | ARI | 0.00186805 |
 | ATL | 0.00212476 |
 | BAL | 0.00190340 |
 | BUF | 0.00218535 |
@@ -42,10 +42,10 @@
 | TEN | 0.00192016 |
 | WAS | 0.00206805 |
 
-## Sqlite
-| home_team | avg(two_point_attempt) |
-| --------- | ---------------------- |
-| ARI | 0.00186805 |
+    ## Sqlite
+    | home_team | avg(two_point_attempt) |
+    | --------- | ---------------------- |
+    | ARI | 0.00186805 |
 | ATL | 0.00212476 |
 | BAL | 0.00190340 |
 | BUF | 0.00218535 |

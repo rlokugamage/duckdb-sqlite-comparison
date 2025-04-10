@@ -58,17 +58,17 @@ with console.status("Loading Parquet Files..."):
     df_sqlite = pd.concat(files, ignore_index=True)
     df_duckdb = df_sqlite.copy(deep=True).reset_index().rename(columns={"index": "idx"})
 
-console.print(f"Dataframe mem size: {round(df_sqlite.memory_usage(index=True).sum() / 1_000_000_000, 2)}gb")
+console.print(f"Dataframe mem size: {round(df_sqlite.memory_usage(index=True).sum() / 1_000_000_000, 2)} gb")
 
 duckdb_conn = duckdb.connect("./dbs/nfl_pbp.duckdb")
-sqlite3_conn = sqlite3.connect("./dbs/nfl_pbp.db")
+sqlite_conn = sqlite3.connect("./dbs/nfl_pbp.db")
 
 def load_duckdb():
     duckdb_conn.sql("CREATE TABLE pbp AS SELECT * FROM df_duckdb")
 
 
 def load_sqlite():
-    df_sqlite.to_sql("pbp", con=sqlite3_conn, index_label="idx")
+    df_sqlite.to_sql("pbp", con=sqlite_conn, index_label="idx")
 
 console.print("Starting DB Load tasks")
 with Progress(TextColumn("[progress.description]{task.description}"),
@@ -85,7 +85,7 @@ with Progress(TextColumn("[progress.description]{task.description}"),
             number=1,
         )
 
-    with TaskSetup("Sqlite", progress=progress, total=5, conn=sqlite3_conn) as sqlite_setup:
+    with TaskSetup("Sqlite", progress=progress, total=5, conn=sqlite_conn) as sqlite_setup:
         load_sqlite_time = timeit.repeat(
             stmt=load_sqlite,
             setup=sqlite_setup,
@@ -95,7 +95,7 @@ with Progress(TextColumn("[progress.description]{task.description}"),
 
 
 duckdb_conn.close()
-sqlite3_conn.close()
+sqlite_conn.close()
 console.print("In 5 loops:")
 console.print(f"- duckdb took on avg {mean(load_duckdb_time):.2f} seconds")
 console.print(f"- sqlite took on avg {mean(load_sqlite_time):.2f} seconds")
